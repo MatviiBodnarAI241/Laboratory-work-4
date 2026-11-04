@@ -1,0 +1,17 @@
+name: Program Code Convention
+on:
+  push:
+    branches: laboratory-work-4
+jobs:
+  ProgramCodeLinter:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code in Repository
+        uses: actions/checkout@v4
+      - name: Install Biome
+        run: npm install --save-dev --save-exact @biomejs/biome@2.3.0
+      - name: Lint ProgramCode.ts
+        run: npx @biomejs/biome check 3-SoftwareConstruction/3.1-GitHubActions/ProgramCode.ts
+      - name: Lint ProgramCodeModified.ts
+        if: always()
+        run: npx @biomejs/biome check 3-SoftwareConstruction/3.1-GitHubActions/ProgramCodeModified.ts

@@ -1,0 +1,17 @@
+name: Data Schema Code Convention
+on:
+  push:
+    branches: laboratory-work-4
+jobs:
+  SQLLinter:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Code in Repository
+        uses: actions/checkout@v4
+      - name: Install sqlfluff
+        run: pip install sqlfluff
+      - name: Lint DataSchema.sql
+        run: sqlfluff lint $GITHUB_WORKSPACE/3-SoftwareConstruction/3.1-GitHubActions/DataSchema.sql --dialect postgres
+      - name: Lint DataSchemaModified.sql
+        if: always()
+        run: sqlfluff lint $GITHUB_WORKSPACE/3-SoftwareConstruction/3.1-GitHubActions/DataSchemaModified.sql --dialect postgres

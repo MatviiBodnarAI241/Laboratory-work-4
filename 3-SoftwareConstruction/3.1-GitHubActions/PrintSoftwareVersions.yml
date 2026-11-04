@@ -1,0 +1,26 @@
+name: Print Software Versions
+on:
+  push:
+    branches: laboratory-work-4
+jobs:
+  PrintLanguageVersions:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Print OS Version
+        run: lsb_release -d
+      - name: Print Node Version
+        run: node --version
+      - name: Print npm Version
+        run: npm --version
+  PrintDBMSVersions:
+    runs-on: ubuntu-22.04
+    needs: [PrintLanguageVersions]
+    steps:
+      - name: Print PostgreSQL Client Version
+        run: psql --version
+      - name: Print PostgreSQL Server Version
+        run: /usr/lib/postgresql/16/bin/postgres --version
