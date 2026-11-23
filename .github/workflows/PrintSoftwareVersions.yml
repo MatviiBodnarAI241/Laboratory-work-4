@@ -1,31 +1,18 @@
 name: Print Software Versions
 on:
   push:
-    branches: laboratory-work-4
+  workflow_dispatch:
 jobs:
   PrintLanguageVersions:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Print OS Version
-        run: lsb_release -d
-      - name: Print Node Version
-        run: node --version
-      - name: Print npm Version
-        run: npm --version
+      - name: Print Java Version
+        run: java --version
+      - name: Print Maven Version
+        run: mvn --version
   PrintDBMSVersions:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: [PrintLanguageVersions]
     steps:
-      - name: Install PostgreSQL 16
-        run: |
-          sudo apt-get install -y postgresql-common
-          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
-          sudo apt-get install -y postgresql-16
-      - name: Print PostgreSQL Client Version
+      - name: Print PostgreSQL Version
         run: psql --version
-      - name: Print PostgreSQL Server Version
-        run: /usr/lib/postgresql/16/bin/postgres --version
